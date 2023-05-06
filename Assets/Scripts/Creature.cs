@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Wizardry
 {
@@ -10,16 +11,6 @@ namespace Wizardry
 
     public abstract class Creature : MonoBehaviour, Damageable
     {
-        protected enum resistanceIndex
-        {
-            Physical,
-            Arcane,
-            Fire,
-            Electric,
-            Impact,
-            Force
-        }
-
         protected delegate void MoveFunction();
 
         protected Rigidbody2D rb;
@@ -31,7 +22,7 @@ namespace Wizardry
         private float curHealth;
 
         [SerializeField]
-        private float[] resistances;
+        private Attack.ResistanceDictionary resistances;
 
         protected bool ragdoll;
         
@@ -45,14 +36,12 @@ namespace Wizardry
         private void Start()
         {
             curHealth = maxHealth;
-            if(resistances == null)
+
+            foreach(Attack.DamageType type in Enum.GetValues((typeof(Attack.DamageType)))) //fill in resistances not filled out in inspector, default to 1 (no resistance)
             {
-                resistances = new float[6];
-                for (int i = 0; i < resistances.Length; i++)
-                {
-                    resistances[i] = 1f;
-                }
+                resistances.TryAdd(type, 1f);
             }
+            
         }
 
         protected virtual void Update()
@@ -89,7 +78,7 @@ namespace Wizardry
         
         public void TakeAttack(Attack a)
         {
-            float damageToTake = resistances[(int)a.damageType] * a.damage;
+            float damageToTake = resistances[a.damageType] * a.damage;
             if(damageToTake > 0)
             {
                 curHealth -= damageToTake;

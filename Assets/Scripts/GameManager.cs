@@ -21,5 +21,12 @@ namespace Wizardry
                 Destroy(gameObject);
             }
         }
+
+        public static IEnumerator TimedDestruct(GameObject objectToDestroy, float time)
+        {
+            yield return new WaitForSeconds(time);
+
+            Destroy(objectToDestroy);
+        }
     }
 }

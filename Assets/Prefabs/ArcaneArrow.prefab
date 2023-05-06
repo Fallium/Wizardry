@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6031876148432937834}
   - component: {fileID: 6518237901994614939}
   - component: {fileID: 8808192817971677073}
-  - component: {fileID: 5560710867633948820}
+  - component: {fileID: -8188516204315294570}
   m_Layer: 8
   m_Name: ArcaneArrow
   m_TagString: Untagged
@@ -96,13 +96,13 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6031876148432937835}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -125,7 +125,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.29383847, y: 0.0021635648}
   m_Size: {x: 0.74658006, y: 0.12219253}
   m_Direction: 1
---- !u!114 &5560710867633948820
+--- !u!114 &-8188516204315294570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

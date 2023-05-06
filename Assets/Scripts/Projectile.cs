@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Wizardry
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+
     [RequireComponent(typeof(Collider2D))]
     public class Projectile : MonoBehaviour
     {
@@ -21,6 +21,8 @@ namespace Wizardry
         protected float lifetime;
 
         protected bool velocityAligned;
+
+        protected Vector2 lastFrameVelocity;
 
         protected virtual void Awake()
         {
@@ -44,6 +46,8 @@ namespace Wizardry
         {
             HandleLifetime();
             HandleVelocityAlignment();
+
+            lastFrameVelocity = rb.velocity;
         }
 
         protected virtual void HandleLifetime()
@@ -63,9 +67,22 @@ namespace Wizardry
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected virtual bool DamageIfDamageable(Collision2D collision)
         {
-            
+            Damageable damaged = collision.gameObject.GetComponent<Damageable>();
+            if (damaged != null) //if target is damageable
+            {
+                damaged.TakeAttack(new Attack(damage, damageType, lastFrameVelocity, knockback));
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
+        {
+            DamageIfDamageable(collision);
+
+            Destroy(gameObject);
         }
     }
 }

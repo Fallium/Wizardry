@@ -7,5 +7,10 @@ namespace Wizardry
     public interface Damageable
     {
         void TakeAttack(Attack a);
+
+        public struct Resistance
+        {
+
+        }
     }
 }
